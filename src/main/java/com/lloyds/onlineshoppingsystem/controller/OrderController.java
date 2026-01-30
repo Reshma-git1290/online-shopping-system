@@ -13,8 +13,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/checkout/{userId}")
-    public String checkout(@PathVariable Long userId) {
+    @PostMapping("/placeorder/{userId}")
+    public String placeOrder(@PathVariable Long userId) {
         orderService.placeOrder(userId);
         return "Order placed successfully";
     }
