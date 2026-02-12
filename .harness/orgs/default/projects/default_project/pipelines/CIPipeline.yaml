@@ -1,0 +1,43 @@
+pipeline:
+  name: CI-Pipeline
+  identifier: CIPipeline
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: Github
+        repoName: CI-Auth
+        build: <+input>
+  stages:
+    - stage:
+        name: "Build Docker Image "
+        identifier: Build_Docker_Image
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: Docker
+                    repo: reshma1684/ci-nodejs-authentication
+                    tags:
+                      - v1
+                    caching: false
